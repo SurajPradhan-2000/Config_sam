@@ -1,0 +1,15 @@
+requests
+fastapi
+mangum
+pymysql
+pyjwt
+pandas
+dnspython
+pymongo
+python-multipart
+prisma
+psycopg2-binary==2.9.10
+sqlalchemy 
+asyncpg
+alembic
+pg8000

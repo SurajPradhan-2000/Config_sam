@@ -1,0 +1,542 @@
+# AWSTemplateFormatVersion: '2010-09-09'
+# Transform: AWS::Serverless-2016-10-31
+# Description: >
+#   samproject
+
+#   Sample SAM Template for samproject
+
+# # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+# Globals:
+#   Function:
+#     Timeout: 3
+
+# Resources:
+#   HelloWorldFunction:
+#     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+#     Properties:
+#       CodeUri: hello_world/
+#       Handler: app.lambda_handler
+#       Runtime: python3.11
+#       Architectures:
+#         - x86_64
+#       Events:
+#         HelloWorld:
+#           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+#           Properties:
+#             Path: /hello
+#             Method: get
+# # ✅ FastAPI Currency Function
+#   CurrencyFunction:
+#     Type: AWS::Serverless::Function
+#     Properties:
+#       CodeUri: Currency/
+#       Handler: app.main.handler
+#       Runtime: python3.11
+#       Architectures:
+#         - x86_64
+#       Events:
+#         CreateCurrency:
+#           Type: Api
+#           Properties:
+#             Path: /currency
+#             Method: post
+#         GetCurrencies:
+#           Type: Api
+#           Properties:
+#             Path: /currency
+#             Method: get
+#         GetCurrencyById:
+#           Type: Api
+#           Properties:
+#             Path: /currency/{currency_id}
+#             Method: get
+#         UpdateCurrency:
+#           Type: Api
+#           Properties:
+#             Path: /currency
+#             Method: put
+#         DeleteCurrency:
+#           Type: Api
+#           Properties:
+#             Path: /currency/{currency_id}
+#             Method: delete
+# Outputs:
+#   # ✅ API Gateway URL
+#   CurrencyApi:
+#     Description: "API Gateway endpoint URL for Currency function"
+#     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/currency/"
+#   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+#   # Find out more about other implicit resources you can reference within SAM
+#   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+#   HelloWorldApi:
+#     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+#     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+#   HelloWorldFunction:
+#     Description: "Hello World Lambda Function ARN"
+#     Value: !GetAtt HelloWorldFunction.Arn
+#   HelloWorldFunctionIamRole:
+#     Description: "Implicit IAM Role created for Hello World function"
+#     Value: !GetAtt HelloWorldFunctionRole.Arn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  samproject
+
+  Sample SAM Template for samproject
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+
+  # ✅ FastAPI Currency Function
+  CurrencyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Currency/
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateCurrency:
+          Type: Api
+          Properties:
+            Path: /currency
+            Method: post
+        GetCurrencies:
+          Type: Api
+          Properties:
+            Path: /currency
+            Method: get
+        GetCurrencyById:
+          Type: Api
+          Properties:
+            Path: /currency/{currency_id}
+            Method: get
+        UpdateCurrency:
+          Type: Api
+          Properties:
+            Path: /currency
+            Method: put
+        DeleteCurrency:
+          Type: Api
+          Properties:
+            Path: /currency/{currency_id}
+            Method: delete
+  LanguageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Language/
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateLanguage:
+          Type: Api
+          Properties:
+            Path: /language
+            Method: post
+        GetLanguages:
+          Type: Api
+          Properties:
+            Path: /language
+            Method: get
+        GetLanguageById:
+          Type: Api
+          Properties:
+            Path: /language/{language_id}
+            Method: get
+        UpdateLanguage:
+          Type: Api
+          Properties:
+            Path: /language
+            Method: put
+        DeleteLanguage:
+          Type: Api
+          Properties:
+            Path: /language/{language_id}
+            Method: delete
+
+  SocialMediaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Social_media/
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateSocialMedia:
+          Type: Api
+          Properties:
+            Path: /social
+            Method: post
+        GetSocialMedia:
+          Type: Api
+          Properties:
+            Path: /social
+            Method: get
+        GetSocialMediaById:
+          Type: Api
+          Properties:
+            Path: /social/{social_id}
+            Method: get
+        UpdateSocialMedia:
+          Type: Api
+          Properties:
+            Path: /social
+            Method: put
+        DeleteSocialMedia:
+          Type: Api
+          Properties:
+            Path: /social/{social_id}
+            Method: delete
+  TaxFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Tax/  # Update to the correct directory
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateTax:
+          Type: Api
+          Properties:
+            Path: /tax
+            Method: post
+        GetTaxes:
+          Type: Api
+          Properties:
+            Path: /tax
+            Method: get
+        GetTaxById:
+          Type: Api
+          Properties:
+            Path: /tax/{id}
+            Method: get
+        UpdateTax:
+          Type: Api
+          Properties:
+            Path: /tax
+            Method: put
+        DeleteTax:
+          Type: Api
+          Properties:
+            Path: /tax/{id}
+            Method: delete
+  NotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Notification/  
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateNotification:
+          Type: Api
+          Properties:
+            Path: /notifications
+            Method: post
+        GetNotifications:
+          Type: Api
+          Properties:
+            Path: /notifications
+            Method: get
+        GetNotificationById:
+          Type: Api
+          Properties:
+            Path: /notifications/{id}
+            Method: get
+        UpdateNotification:
+          Type: Api
+          Properties:
+            Path: /notifications
+            Method: put
+        DeleteNotification:
+          Type: Api
+          Properties:
+            Path: /notifications/{id}
+            Method: delete
+  BusinessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Business_profile/  
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateBusiness:
+          Type: Api
+          Properties:
+            Path: /business
+            Method: post
+        GetBusinesses:
+          Type: Api
+          Properties:
+            Path: /business
+            Method: get
+        GetBusinessById:
+          Type: Api
+          Properties:
+            Path: /business/{id}
+            Method: get
+        UpdateBusiness:
+          Type: Api
+          Properties:
+            Path: /business
+            Method: put
+        DeleteBusiness:
+          Type: Api
+          Properties:
+            Path: /business/{id}
+            Method: delete
+
+  PrivacyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: privacy_policy/  # Update this to the correct directory path
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreatePrivacy:
+          Type: Api
+          Properties:
+            Path: /privacy
+            Method: post
+        GetPrivacyPolicies:
+          Type: Api
+          Properties:
+            Path: /privacy
+            Method: get
+        GetPrivacyById:
+          Type: Api
+          Properties:
+            Path: /privacy/{policy_id}
+            Method: get
+        UpdatePrivacy:
+          Type: Api
+          Properties:
+            Path: /privacy
+            Method: put
+        DeletePrivacy:
+          Type: Api
+          Properties:
+            Path: /privacy/{policy_id}
+            Method: delete
+
+  TermsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: terms_conditions/  # Update this to the correct directory path
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateTerms:
+          Type: Api
+          Properties:
+            Path: /terms
+            Method: post
+        GetTerms:
+          Type: Api
+          Properties:
+            Path: /terms
+            Method: get
+        GetTermsById:
+          Type: Api
+          Properties:
+            Path: /terms/{terms_id}
+            Method: get
+        UpdateTerms:
+          Type: Api
+          Properties:
+            Path: /terms
+            Method: put
+        DeleteTerms:
+          Type: Api
+          Properties:
+            Path: /terms/{terms_id}
+            Method: delete
+
+  RefundFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: refund_cancellation/  # Update this to the correct directory path
+      Handler: app.main.handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          DB_HOST: "aipmo.chugwmwqo0r9.ap-south-1.rds.amazonaws.com"
+          DB_PORT: "5432"
+          DB_NAME: "config"
+          DB_USER: "postgres"
+          DB_PASSWORD: "pmo-2025"
+      Events:
+        CreateRefund:
+          Type: Api
+          Properties:
+            Path: /refund
+            Method: post
+        GetRefund:
+          Type: Api
+          Properties:
+            Path: /refund
+            Method: get
+        GetRefundById:
+          Type: Api
+          Properties:
+            Path: /refund/{refund_id}
+            Method: get
+        UpdateRefund:
+          Type: Api
+          Properties:
+            Path: /refund
+            Method: put
+        DeleteRefund:
+          Type: Api
+          Properties:
+            Path: /refund/{refund_id}
+            Method: delete
+Outputs:
+  # ✅ API Gateway URL
+
+  RefundApi:
+    Description: "API Gateway endpoint URL for Refund & Cancellation Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/refund/"
+
+  TermsApi:
+    Description: "API Gateway endpoint URL for Terms & Conditions Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/terms/"
+
+  PrivacyApi:
+    Description: "API Gateway endpoint URL for Privacy Policy Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/privacy/"
+
+  BusinessApi:
+    Description: "API Gateway endpoint URL for Business Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/business/"
+
+  NotificationApi:
+    Description: "API Gateway endpoint URL for Notification Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/notifications/"
+  TaxApi:
+    Description: "API Gateway endpoint URL for Tax Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tax/"
+
+  
+  SocialMediaApi:
+    Description: "API Gateway endpoint URL for Social Media Service"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/social/"
+  LanguageApi:
+    Description: "API Gateway endpoint URL for Language function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/language/"
+  CurrencyApi:
+    Description: "API Gateway endpoint URL for Currency function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/currency/"
+  # HelloWorldApi:
+  #   Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+  #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  HelloWorldFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
