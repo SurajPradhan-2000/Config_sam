@@ -373,7 +373,7 @@ Resources:
   PrivacyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: privacy_policy/  # Update this to the correct directory path
+      CodeUri: privacy_policy/  
       Handler: app.main.handler
       Runtime: python3.11
       Architectures:
